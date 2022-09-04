@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const getMateria = async () => {
+const getMateria = async (state) => {
     const peticion = await axios.get('https://api-ademicobd.herokuapp.com/materia/list')
-    console.log(peticion.data)
+    state(peticion.data)
 }
 
 export {
