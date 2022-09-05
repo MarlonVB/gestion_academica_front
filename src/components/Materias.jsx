@@ -220,7 +220,7 @@ class Materias extends React.Component{
                                 <button className="btn btn-success" onClick={()=> {this.preSubmit()}}>Confirmar</button>:
                                 <button className="btn btn-primary" onClick={()=> {this.preSubmit()}}>Guardar</button>
                             }
-                            <button className="btn btn-danger" onClick={()=>this.setState({modalAgregar:false})}>Cancelar</button>
+                            <button className="btn btn-danger" onClick={()=>{this.setState({modalAgregar:false}); this.modalAgregarClose()}}>Cancelar</button>
                         </ModalFooter>
                     </Modal>
 

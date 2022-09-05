@@ -5,11 +5,11 @@ import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faFaceSadTear, faThumbsUp, faTrashAlt, faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../components/styles/Estudiantes.css';
+// import '../components/styles/Estudiantes.css';
 
-const urlApi = 'https://api-ademicobd.herokuapp.com/estudiante/'
+const urlApi = 'https://api-ademicobd.herokuapp.com/docente/'
 
-class Estudiantes extends React.Component{
+class Docentes extends React.Component{
 
     state ={
         data:[],
@@ -25,8 +25,8 @@ class Estudiantes extends React.Component{
             cedula: '',
             telefono: '',
             correo: '',
-            curso: '',
-            paralelo: ''
+            materia: '',
+            tutor: ''
         },
         tipoModal: '',
         validarForm: {},
@@ -37,19 +37,19 @@ class Estudiantes extends React.Component{
         detalleOperacion: ''
     }
 
-    getEstudiantes = () =>{
+    getDocentes = () =>{
         axios.get(urlApi+'list').then(response =>{
             this.setState({data: response.data});
         }).catch(err=>{
-            this.setState({tipoErro: 'listar'})
-            this.setState({detalleError: 'Tipo error '+err})
-            this.setState({modalError: true})
+            // this.setState({tipoErro: 'listar'})
+            // this.setState({detalleError: 'Tipo error '+err})
+            // this.setState({modalError: true})
         })
     }
 
-    setEstudiantes = async () =>{
+    setDocente =async () =>{
         await axios.post(urlApi+'crear', this.state.form).then(response =>{
-            this.getEstudiantes();
+            this.getDocentes();
         }).catch(err=>{
             this.setState({tipoErro: 'agregar'})
             this.setState({detalleError: 'Tipo error '+err})
@@ -59,7 +59,7 @@ class Estudiantes extends React.Component{
 
     updateMateria=()=>{
         axios.put(urlApi+this.state.form.id, this.state.form).then(response=>{
-            this.getEstudiantes()
+            this.getDocentes()
             this.setState({
                 form: {
                     id: '',
@@ -68,8 +68,8 @@ class Estudiantes extends React.Component{
                     cedula: '',
                     telefono: '',
                     correo: '',
-                    curso: '',
-                    paralelo: ''
+                    materia: '',
+                    tutor: ''
                 }
             })
         }).catch(err=>{
@@ -79,10 +79,10 @@ class Estudiantes extends React.Component{
         })
     }
 
-    deleteEstudiante=()=>{
+    deleteDocente=()=>{
         axios.delete(urlApi+this.state.form.id).then(response=>{
             this.setState({modalAdvertencia:false});
-            this.getEstudiantes();
+            this.getDocentes();
         }).catch(err=>{
             this.setState({modalAdvertencia: false})
             this.setState({tipoErro: 'eliminar'})
@@ -124,7 +124,7 @@ class Estudiantes extends React.Component{
         this.setState({validarForm: returnValidar})
     }
 
-    estudianteSlect=(estudiante)=>{
+    docenteSlect=(estudiante)=>{
         this.setState({
             tipoModal: 'actulizar',
             form: {
@@ -134,7 +134,7 @@ class Estudiantes extends React.Component{
                 cedula: estudiante.cedula,
                 telefono: estudiante.telefono,
                 correo: estudiante.correo,
-                curso: estudiante.curso,
+                materia: estudiante.materia,
                 paralelo: estudiante.paralelo
             }
         })
@@ -185,18 +185,18 @@ class Estudiantes extends React.Component{
             errores.estadoCorreo = 1
         }
 
-        if (!val.curso) {
-            errores.curso = 'El curso es requerido'
-            errores.estadoCurso = 0
+        if (!val.materia) {
+            errores.materia = 'La Materia es requerida'
+            errores.estadoMateria = 0
         }else {
-            errores.estadoCurso = 1
+            errores.estadoMateria = 1
         }
 
-        if (!val.paralelo) {
-            errores.paralelo = 'El paralelo es requerido'
-            errores.estadoParalelo = 0
+        if (!val.tutor) {
+            errores.tutor = 'El estado de Tutor es requerido'
+            errores.estadoTutor = 0
         }else {
-            errores.estadoParalelo = 1
+            errores.estadoTutor = 1
         }
 
         return errores;
@@ -210,15 +210,15 @@ class Estudiantes extends React.Component{
             this.state.validarForm.estadoCedula === 0 ||
             this.state.validarForm.estadoTelefono === 0 ||
             this.state.validarForm.estadoCorreo === 0 ||
-            this.state.validarForm.estadoCurso === 0 ||
-            this.state.validarForm.estadoParalelo === 0){
+            this.state.validarForm.estadoMateria === 0 ||
+            this.state.validarForm.estadoTutor === 0){
 
             this.setState({isSubmit: true})
 
         }else {
             this.setState({modalAgregar:false})
             if (this.state.tipoModal==='insertar'){
-                this.setEstudiantes();
+                this.setDocente();
                 this.setState({allOk: true})
                 this.setState({mensajeOk: 'Los datos han sido registrados correctamente'})
                 this.setState({detalleOperacion: 'Nuevo alumno ingresado: '+this.state.form.nombre+' '+this.state.form.apellido})
@@ -232,25 +232,25 @@ class Estudiantes extends React.Component{
     }
 
     componentDidMount() {
-        this.getEstudiantes();
+        this.getDocentes();
     }
 
-    render(){
+    render() {
         return(
-            <header>
+            <>
                 <NavBar></NavBar>
 
                 <Button
                     color="success"
                     onClick={
-                    ()=>{
-                        this.setState({tipoModal:'insertar'});
-                        this.setState({modalAgregar:true})
-                    }}
-                >Agregar Estudiante</Button>
+                        ()=>{
+                            this.setState({tipoModal:'insertar'});
+                            this.setState({modalAgregar:true})
+                        }}
+                >Agregar Docente</Button>
 
                 <Modal isOpen={this.state.modalAgregar}>
-                    <ModalHeader>Agregar nueva Asignatura</ModalHeader>
+                    <ModalHeader>{this.state.tipoModal.trim().replace(/^\w/, (c) => c.toUpperCase())} Docente</ModalHeader>
                     <ModalBody>
                         <div className="form-group">
                             <label htmlFor="id">ID</label>
@@ -319,27 +319,27 @@ class Estudiantes extends React.Component{
                                 onBlur={(e)=>{this.handleBlur(e)}}/>
                             {this.state.validarForm.correo && this.state.isSubmit && <p>{this.state.validarForm.correo}</p>}
                             <br/>
-                            <label htmlFor="curso">Curso</label>
+                            <label htmlFor="materia">Materia</label>
                             <input
                                 className="form-control"
                                 type="text"
-                                name="curso"
-                                id="curso"
-                                value={this.state.form?this.state.form.curso:''}
+                                name="materia"
+                                id="materia"
+                                value={this.state.form?this.state.form.materia:''}
                                 onChange={(event)=>this.handleOnChange(event)}
                                 onBlur={(e)=>{this.handleBlur(e)}}/>
-                            {this.state.validarForm.curso && this.state.isSubmit && <p>{this.state.validarForm.curso}</p>}
+                            {this.state.validarForm.materia && this.state.isSubmit && <p>{this.state.validarForm.materia}</p>}
                             <br/>
-                            <label htmlFor="paralelo">Paralelo</label>
+                            <label htmlFor="tutor">Tutor</label>
                             <input
                                 className="form-control"
                                 type="text"
-                                name="paralelo"
-                                id="paralelo"
-                                value={this.state.form?this.state.form.paralelo:''}
+                                name="tutor"
+                                id="tutor"
+                                value={this.state.form?this.state.form.tutor:''}
                                 onChange={(event)=>this.handleOnChange(event)}
                                 onBlur={(e)=>{this.handleBlur(e)}}/>
-                            {this.state.validarForm.paralelo && this.state.isSubmit && <p>{this.state.validarForm.paralelo}</p>}
+                            {this.state.validarForm.tutor && this.state.isSubmit && <p>{this.state.validarForm.tutor}</p>}
                         </div>
                     </ModalBody>
                     <ModalFooter>
@@ -378,73 +378,76 @@ class Estudiantes extends React.Component{
                 <Modal isOpen={this.state.modalAdvertencia}>
                     <ModalHeader><FontAwesomeIcon icon={faTriangleExclamation}/> Advertencia</ModalHeader>
                     <ModalBody>
-                        ¿Esta seguro de eliminar al estudiante {this.state && this.state.form.nombre && this.state.form.apellido}?
+                        ¿Esta seguro de eliminar al docente {this.state && this.state.form.nombre && this.state.form.apellido}?
                     </ModalBody>
                     <ModalFooter>
-                        <button className="btn btn-danger" onClick={()=>{this.deleteEstudiante()}}>Si</button>
+                        <button className="btn btn-danger" onClick={()=>{this.deleteDocente()}}>Si</button>
                         <button className="btn btn-secondary" onClick={()=>this.setState({modalAdvertencia: false})}>No</button>
                     </ModalFooter>
                 </Modal>
 
-                <div className="container-tab table-responsive">
-                    <table className="table table-striped table-light">
-                        <thead className="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Cedula</th>
-                            <th>Telefono</th>
-                            <th>Correo</th>
-                            <th>Curso</th>
-                            <th>Paralelo</th>
-                            <th></th>
-                        </tr>
-                        </thead>
+                <header>
+                    <div className="container-tab table-responsive">
+                        <table className="table table-striped table-light">
+                            <thead className="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Cedula</th>
+                                <th>Telefono</th>
+                                <th>Correo</th>
+                                <th>ID Materia</th>
+                                <th>Estado Tutor</th>
+                                <th></th>
+                            </tr>
+                            </thead>
 
-                        <tbody>
-                        {this.state.data.map(estudiante =>{
-                            return(
-                                <tr>
-                                    <td>{estudiante.id}</td>
-                                    <td>{estudiante.nombre}</td>
-                                    <td>{estudiante.apellido}</td>
-                                    <td>{estudiante.cedula}</td>
-                                    <td>{estudiante.telefono}</td>
-                                    <td>{estudiante.correo}</td>
-                                    <td>{estudiante.curso}</td>
-                                    <td>{estudiante.paralelo}</td>
-                                    <td>
-                                        <button
-                                            className="btn btn-primary"
-                                            onClick={
-                                            ()=>{
-                                                this.estudianteSlect(estudiante);
-                                                this.setState({modalAgregar: !this.state.modalAgregar})
-                                            }}>
-
-                                            <FontAwesomeIcon icon={faEdit}/>
-                                        </button>
-                                        {"    "}
-                                        <button
-                                            className="btn btn-danger"
-                                            onClick={
-                                            ()=>{
-                                                this.estudianteSlect(estudiante);
-                                                this.setState({modalAdvertencia: true})
-                                            }}>
-                                            <FontAwesomeIcon icon={faTrashAlt}/>
-                                        </button>
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                        </tbody>
-                    </table>
-                </div>
-            </header>
+                            <tbody>
+                            {this.state.data.map(docentes =>{
+                                return(
+                                    <tr>
+                                        <td>{docentes.id}</td>
+                                        <td>{docentes.nombre}</td>
+                                        <td>{docentes.apellido}</td>
+                                        <td>{docentes.cedula}</td>
+                                        <td>{docentes.telefono}</td>
+                                        <td>{docentes.correo}</td>
+                                        <td>{docentes.materia}</td>
+                                        <td>{docentes.tutor}</td>
+                                        <td>
+                                            <button
+                                                className="btn btn-primary"
+                                                onClick={
+                                                    ()=>{
+                                                        this.docenteSlect(docentes);
+                                                        this.setState({modalAgregar: !this.state.modalAgregar})
+                                                    }}
+                                            >
+                                                <FontAwesomeIcon icon={faEdit}/>
+                                            </button>
+                                            {"    "}
+                                            <button
+                                                className="btn btn-danger"
+                                                onClick={
+                                                    ()=>{
+                                                        this.docenteSlect(docentes);
+                                                        this.setState({modalAdvertencia: true})
+                                                    }}
+                                            >
+                                                <FontAwesomeIcon icon={faTrashAlt}/>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                            </tbody>
+                        </table>
+                    </div>
+                </header>
+            </>
         )
     }
 }
 
-export default Estudiantes
+export default Docentes
