@@ -1,39 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {getMateria} from "../funtions/funtions";
 import {Card} from 'primereact/card';
 import '../components/styles/CardOptions.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link} from "react-router-dom";
+import NavBar from "./NavBar";
 
 const Inicio = () => {
 
     return (
         <>
             <header className="container-main">
-                <div className="header-nav">
-                    <nav className="nav-menu">
-                        <ul className="nav-list-items">
-                            <li>
-                                <a href="#">Inicio</a>
-                            </li>
-                            <li>
-                                <a href="#">Estudiantes</a>
-                            </li>
-                            <li>
-                                <a href="#">Docentes</a>
-                            </li>
-                            <li>
-                                <Link to="/materia">Asignaturas</Link>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div>
-
-                    </div>
-                    <img className="logo" src="https://i.postimg.cc/65k595dJ/icons8-mortarboard-100px.png"/>
-                    <h1 className="title">Academico</h1>
-                </div>
-
+                <NavBar></NavBar>
                 {/*CONTENIDO*/}
 
                 <div>

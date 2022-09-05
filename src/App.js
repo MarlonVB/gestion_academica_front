@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Inicio from "./components/Inicio";
 import Materias from "./components/Materias";
 import Estudiantes from "./components/Estudiantes";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
