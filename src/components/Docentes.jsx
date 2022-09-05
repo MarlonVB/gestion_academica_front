@@ -3,7 +3,14 @@ import React, {useEffect, useState} from "react";
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label} from "reactstrap";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faFaceSadTear, faThumbsUp, faTrashAlt, faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
+import {
+    faEdit,
+    faFaceSadTear,
+    faPlus,
+    faThumbsUp,
+    faTrashAlt,
+    faTriangleExclamation
+} from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import '../components/styles/Estudiantes.css';
 
@@ -239,16 +246,6 @@ class Docentes extends React.Component{
         return(
             <>
                 <NavBar></NavBar>
-
-                <Button
-                    color="success"
-                    onClick={
-                        ()=>{
-                            this.setState({tipoModal:'insertar'});
-                            this.setState({modalAgregar:true})
-                        }}
-                >Agregar Docente</Button>
-
                 <Modal isOpen={this.state.modalAgregar}>
                     <ModalHeader>{this.state.tipoModal.trim().replace(/^\w/, (c) => c.toUpperCase())} Docente</ModalHeader>
                     <ModalBody>
@@ -387,62 +384,78 @@ class Docentes extends React.Component{
                 </Modal>
 
                 <header>
-                    <div className="container-tab table-responsive">
-                        <table className="table table-striped table-light">
-                            <thead className="table-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Cedula</th>
-                                <th>Telefono</th>
-                                <th>Correo</th>
-                                <th>ID Materia</th>
-                                <th>Estado Tutor</th>
-                                <th></th>
-                            </tr>
-                            </thead>
+                    <div className="container text-center">
+                        <Button
+                            className="button-add"
+                            color="success"
+                            onClick={
+                                ()=>{
+                                    this.setState({tipoModal:'insertar'});
+                                    this.setState({modalAgregar:true})
+                                }}
+                        >
+                            <FontAwesomeIcon icon={faPlus}/>
+                            Agregar Docente</Button>
 
-                            <tbody>
-                            {this.state.data.map(docentes =>{
-                                return(
+                        <div className="row table-responsive">
+                            <div className="col">
+                                <table className="table table-striped table-light">
+                                    <thead className="table-dark">
                                     <tr>
-                                        <td>{docentes.id}</td>
-                                        <td>{docentes.nombre}</td>
-                                        <td>{docentes.apellido}</td>
-                                        <td>{docentes.cedula}</td>
-                                        <td>{docentes.telefono}</td>
-                                        <td>{docentes.correo}</td>
-                                        <td>{docentes.materia}</td>
-                                        <td>{docentes.tutor}</td>
-                                        <td>
-                                            <button
-                                                className="btn btn-primary"
-                                                onClick={
-                                                    ()=>{
-                                                        this.docenteSlect(docentes);
-                                                        this.setState({modalAgregar: !this.state.modalAgregar})
-                                                    }}
-                                            >
-                                                <FontAwesomeIcon icon={faEdit}/>
-                                            </button>
-                                            {"    "}
-                                            <button
-                                                className="btn btn-danger"
-                                                onClick={
-                                                    ()=>{
-                                                        this.docenteSlect(docentes);
-                                                        this.setState({modalAdvertencia: true})
-                                                    }}
-                                            >
-                                                <FontAwesomeIcon icon={faTrashAlt}/>
-                                            </button>
-                                        </td>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Cedula</th>
+                                        <th>Telefono</th>
+                                        <th>Correo</th>
+                                        <th>ID Materia</th>
+                                        <th>Estado Tutor</th>
+                                        <th></th>
                                     </tr>
-                                )
-                            })}
-                            </tbody>
-                        </table>
+                                    </thead>
+
+                                    <tbody>
+                                    {this.state.data.map(docentes =>{
+                                        return(
+                                            <tr>
+                                                <td>{docentes.id}</td>
+                                                <td>{docentes.nombre}</td>
+                                                <td>{docentes.apellido}</td>
+                                                <td>{docentes.cedula}</td>
+                                                <td>{docentes.telefono}</td>
+                                                <td>{docentes.correo}</td>
+                                                <td>{docentes.materia}</td>
+                                                <td>{docentes.tutor}</td>
+                                                <td>
+                                                    <button
+                                                        className="btn btn-primary"
+                                                        onClick={
+                                                            ()=>{
+                                                                this.docenteSlect(docentes);
+                                                                this.setState({modalAgregar: !this.state.modalAgregar})
+                                                            }}
+                                                    >
+                                                        <FontAwesomeIcon icon={faEdit}/>
+                                                    </button>
+                                                    {"    "}
+                                                    <button
+                                                        className="btn btn-danger"
+                                                        onClick={
+                                                            ()=>{
+                                                                this.docenteSlect(docentes);
+                                                                this.setState({modalAdvertencia: true})
+                                                            }}
+                                                    >
+                                                        <FontAwesomeIcon icon={faTrashAlt}/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </header>
             </>

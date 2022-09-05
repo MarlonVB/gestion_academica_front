@@ -13,26 +13,16 @@ const Inicio = () => {
                 {/*CONTENIDO*/}
 
                 <div>
-                    <div className="container mt-5">
-
-                        <div className="row text-center me-10">
-                            <div className="col">
-                                <Card className="card" title="Esdiantes">
-                                    <img src="https://i.postimg.cc/KYbzDsWK/student.jpg" width="300px"/>
-                                </Card>
-                            </div>
-                            <div className="col">
-                                <Card className="card" title="Docentes">
-                                    <img src="https://i.postimg.cc/x1zJRmTZ/proffesor.jpg" width="300px" height="260px"/>
-                                </Card>
-                            </div>
-                            <div className="col">
-                                <Card className="card" title="Materias">
-                                    <img src="https://i.postimg.cc/YqJjhSfz/subjects.jpg" width="300px" height="260px"/>
-                                </Card>
-                            </div>
+                    <section className="banner contenedor">
+                        <secrion className="banner_title">
+                            <h2>Les gusto <br/> este proyecto?</h2>
+                            <a href="https://github.com/MarlonVB/gestion_academica_front.git" target="_blank" className="llamanos">Link Repositorio!</a>
+                        </secrion>
+                        <div className="banner_img">
+                            <img src="https://i.postimg.cc/26kMnMQc/Academy.png"/>
                         </div>
-                    </div>
+                    </section>
+
                     <div className="burbujas">
                         <div className="burbuja"></div>
                         <div className="burbuja"></div>

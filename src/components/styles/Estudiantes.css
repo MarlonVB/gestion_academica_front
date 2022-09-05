@@ -1,10 +1,21 @@
-.container-tab{
-    background-color: white;
-    margin-top: 200px;
+.container{
+    margin-top: 100px;
     margin-left: 500px;
-    width: 1000px;
 }
 
 .table{
-    width: 1000px;
+    width: auto;
+    height: auto;
+}
+
+.button-add{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 270px;
+    padding: 10px;
+}
+
+.table{
+    margin-top: auto;
+    box-shadow: 15px 15px 40px rgba(0,0,0,0.15);
 }
